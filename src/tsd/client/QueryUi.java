@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Cursor;
@@ -92,10 +93,11 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class QueryUi implements EntryPoint, HistoryListener {
   // Some URLs we use to fetch data from the TSD.
-  private static final String AGGREGATORS_URL = "/aggregators";
-  private static final String LOGS_URL = "/logs?json";
-  private static final String STATS_URL = "/stats?json";
-  private static final String VERSION_URL = "/version?json";
+  private static final String BASE_URL = GWT.getModuleBaseURL().replaceAll("s/$", "");
+  private static final String AGGREGATORS_URL = BASE_URL + "aggregators";
+  private static final String LOGS_URL = BASE_URL + "logs?json";
+  private static final String STATS_URL = BASE_URL + "stats?json";
+  private static final String VERSION_URL = BASE_URL + "version?json";
 
   private static final DateTimeFormat FULLDATE =
     DateTimeFormat.getFormat("yyyy/MM/dd-HH:mm:ss");
@@ -829,7 +831,7 @@ public class QueryUi implements EntryPoint, HistoryListener {
       }
     }
     final StringBuilder url = new StringBuilder();
-    url.append("/q?start=");
+    url.append(BASE_URL + "q?start=");
     final String start_text = start_datebox.getTextBox().getText();
     if (start_text.endsWith(" ago") || start_text.endsWith("-ago")) {
       url.append(start_text);
@@ -904,7 +906,7 @@ public class QueryUi implements EntryPoint, HistoryListener {
         } else {
           clearError();
 
-          String history = unencodedUri.substring(3)      // Remove "/q?".
+          String history = unencodedUri.replaceAll("^.*/q\\?", "")      // Remove "/q?".
             .replaceFirst("ignore=[^&]*&", "");  // Unnecessary cruft.
           if (autoreload.getValue()) {
             history += "&autoreload=" + autoreoload_interval.getText();

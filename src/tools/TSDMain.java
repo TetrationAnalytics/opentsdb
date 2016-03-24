@@ -68,6 +68,8 @@ final class TSDMain {
     argp.addOption("--bind", "ADDR", "Address to bind to (default: 0.0.0.0).");
     argp.addOption("--staticroot", "PATH",
                    "Web root from which to serve static files (/s URLs).");
+    argp.addOption("--urlroot", "URL",
+                   "Base URL to serve static and dynamic content from.");
     argp.addOption("--cachedir", "PATH",
                    "Directory under which to cache result of requests.");
     argp.addOption("--worker-threads", "NUM",
