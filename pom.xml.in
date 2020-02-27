@@ -362,7 +362,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>@JACKSON_VERSION@</version>
+      <version>@JACKSON_DATABIND_VERSION@</version>
     </dependency>
 
     <dependency>
