@@ -93,12 +93,9 @@ getent passwd opentsbd 2>&1 > /dev/null || /usr/sbin/useradd -c "OpenTSDB" -s /s
 if [ $1 -eq 1 ]; then
   # we're installing the first version of this package
   ln -s %{_datarootdir}/opentsdb/etc/opentsdb /etc/opentsdb
+  ln -s %{_datarootdir}/opentsdb/etc/init.d/opentsdb /etc/init.d/opentsdb
   if [ -d /run/systemd/system ]; then
-    ln -s %{_datarootdir}/opentsdb/etc/systemd/system/opentsdb.service /lib/systemd/system
-    ln -s %{_datarootdir}/opentsdb/etc/systemd/system/opentsdb@.service /lib/systemd/system
     systemctl daemon-reload
-  else
-    ln -s %{_datarootdir}/opentsdb/etc/init.d/opentsdb /etc/init.d/opentsdb
   fi
 fi
 exit 0
